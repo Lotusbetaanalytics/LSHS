@@ -14,7 +14,6 @@ const MaternalSchema = new mongoose.Schema({
       date: { type: String },
       year: { type: String },
       month: { type: String },
-      month: { type: String },
       bedComplementBed: { type: String },
       bedComplementOther: { type: String },
       totalAdmissions: { type: String },

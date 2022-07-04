@@ -15,6 +15,9 @@ exports.createMaternal = asyncHandler(async (req, res, next) => {
     const records = exist.records;
     const update = [
       {
+        date: req.body.date,
+        month: req.body.month,
+        year: req.body.year,
         bedComplementBed: req.body.bedComplementBed,
         bedComplementOther: req.body.bedComplementOther,
         totalAdmissions: req.body.totalAdmissions,
@@ -73,6 +76,9 @@ exports.createMaternal = asyncHandler(async (req, res, next) => {
 
     const update = [
       {
+        date: req.body.date,
+        month: req.body.month,
+        year: req.body.year,
         bedComplementBed: req.body.bedComplementBed,
         bedComplementOther: req.body.bedComplementOther,
         totalAdmissions: req.body.totalAdmissions,
