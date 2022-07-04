@@ -20,6 +20,7 @@ connectDB();
 const superadmin = require("./routes/superadmin");
 const location = require("./routes/location");
 const maternal = require("./routes/maternal");
+const record = require("./routes/record");
 
 const app = express();
 if (process.env.NODE_ENV === "development") {
@@ -58,6 +59,7 @@ app.use(hpp());
 app.use("/api/v1/sadmin", superadmin);
 app.use("/api/v1/location", location);
 app.use("/api/v1/maternal", maternal);
+app.use("/api/v1/record", record);
 
 app.use(errorHandler);
 

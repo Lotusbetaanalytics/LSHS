@@ -1,6 +1,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const Maternal = require("../models/Maternal");
+const Record = require("../models/Record");
 
 // @desc    Create Frontdesk
 // @route   POST/api/v1/frontdesk/
@@ -11,6 +12,16 @@ exports.createMaternal = asyncHandler(async (req, res, next) => {
   const exist = await Maternal.findOne({
     location: req.sadmin.location,
   });
+  req.body.death =
+    parseInt(req.body.stillBirthsMale) +
+    parseInt(req.body.stillBirthsFemale) +
+    parseInt(req.body.natalDeaths) +
+    parseInt(req.body.MBookedCase) +
+    parseInt(req.body.MUBookedCase) +
+    parseInt(req.body.maternalBID);
+
+  req.body.total = (req.body.death / parseInt(req.body.births)) * 100000;
+
   if (exist) {
     const records = exist.records;
     const update = [
@@ -58,6 +69,7 @@ exports.createMaternal = asyncHandler(async (req, res, next) => {
       },
     ];
     records.push(...update);
+    await Record.create(req.body);
     await Maternal.findByIdAndUpdate(
       exist._id,
       {
@@ -121,6 +133,7 @@ exports.createMaternal = asyncHandler(async (req, res, next) => {
     records.push(...update);
     req.body.records = records;
     await Maternal.create(req.body);
+    await Record.create(req.body);
     res.status(201).json({
       success: true,
     });
